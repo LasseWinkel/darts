@@ -1,0 +1,7 @@
+.board {
+  border-radius: 50%;
+  border: 40px solid black;
+  width: 400px;
+  height: 400px;
+  z-index: 1000;
+}
