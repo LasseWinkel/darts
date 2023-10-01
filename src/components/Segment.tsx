@@ -8,11 +8,11 @@ interface SegmentProps {
 function Segment(props: SegmentProps) {
   const { number, color } = props;
   return (
-    <div className={`segment-wrapper ${color} n${number}`}>
+    <div className={`segment-wrapper n${number}`}>
       <div className="number-wrapper">
         <span className="number">{number}</span>
       </div>
-      <div className="segment" />
+      <div className={`segment ${color}`} />
     </div>
   );
 }
