@@ -1,4 +1,5 @@
 import "./Segment.css";
+import Multiple from "./Multiple";
 
 interface SegmentProps {
   number: number;
@@ -13,6 +14,8 @@ function Segment(props: SegmentProps) {
         <span className="number">{number}</span>
       </div>
       <div className={`segment ${color}`} />
+      <Multiple styleName="double" color={color} />
+      <Multiple styleName="triple" color={color} />
     </div>
   );
 }

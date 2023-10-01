@@ -1,0 +1,26 @@
+.multiple {
+  height: 20px;
+  position: relative;
+
+  &:hover {
+    background-color: blue;
+  }
+}
+
+.double {
+  bottom: 190px;
+  width: 60px;
+}
+
+.triple {
+  bottom: 120px;
+  width: 40px;
+}
+
+.mblack {
+  background-color: red;
+}
+
+.mwhite {
+  background-color: green;
+}
