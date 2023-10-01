@@ -1,35 +1,56 @@
-.segment {
-  width: 50px;
-  height: 400px;
-  background-size: 50% 100%;
-  background-repeat: no-repeat;
-  background-position: left, right;
-  border-radius: 10%;
+.segment-wrapper {
+  position: absolute;
+  transform-origin: bottom center;
+  margin-left: 160px;
+  bottom: 317px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  margin-left: 175px;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  height: 238px;
+  width: 80px;
+  border-radius: 30%;
+
+  &:hover {
+    /* background-color: blue; */
+  }
+}
+
+.segment {
+  height: 200px;
+  width: 80px;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  border-radius: 10%;
+  border: 2px solid grey;
 
   &:hover {
     background-color: red;
   }
+}
 
-  .number {
-    color: white;
-    position: relative;
-    bottom: 30px;
+.number-wrapper {
+  height: 40px;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  border-radius: 10%;
+
+  &:hover {
+    background-color: green;
   }
 }
 
+.number {
+  color: white;
+}
+
 .black {
-  background-image: linear-gradient(to top right, transparent 50%, black 0),
-    linear-gradient(to bottom right, black 50%, transparent 0);
+  background-color: black;
 }
 
 .white {
-  background-image: linear-gradient(to top right, transparent 50%, white 0),
-    linear-gradient(to bottom right, white 50%, transparent 0);
+  background-color: white;
 }
 
 .n1 {
