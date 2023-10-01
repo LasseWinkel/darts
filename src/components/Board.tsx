@@ -1,5 +1,6 @@
 import "./Board.css";
 import Segment from "./Segment";
+import Bull from "./Bull";
 
 function Board() {
   return (
@@ -24,6 +25,7 @@ function Board() {
       <Segment number={18} color="black" />
       <Segment number={19} color="white " />
       <Segment number={20} color="black" />
+      <Bull />
     </div>
   );
 }

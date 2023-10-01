@@ -1,0 +1,30 @@
+.bull-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 200px;
+}
+
+.single-bull {
+  border: 10px solid green;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  position: absolute;
+
+  &:hover {
+    border: 10px solid darkgreen;
+  }
+}
+
+.bulls-eye {
+  border-radius: 50%;
+  background-color: red;
+  height: 15px;
+  width: 15px;
+  position: absolute;
+
+  &:hover {
+    background-color: darkred;
+  }
+}
