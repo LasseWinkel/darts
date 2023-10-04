@@ -1,15 +1,18 @@
-import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Board from "./Board";
+import BlindKiller from "./BlindKiller";
+import Modi from "./Modi";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Darts</h1>
-      </header>
-      <Board />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Modi />} />
+          <Route path="/blinderkiller" element={<BlindKiller />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
