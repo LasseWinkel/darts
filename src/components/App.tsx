@@ -9,7 +9,17 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Modi />} />
-          <Route path="/blinderkiller" element={<BlindKiller />} />
+          <Route
+            path="/blindkiller"
+            element={
+              <BlindKiller
+                players={[
+                  { name: "usr1", number: 3 },
+                  { name: "usr2", number: 4 },
+                ]}
+              />
+            }
+          />
         </Routes>
       </div>
     </BrowserRouter>

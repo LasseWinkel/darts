@@ -46,6 +46,10 @@
   color: white;
 }
 
+.liveCount {
+  color: grey;
+}
+
 .black {
   background-color: black;
 }

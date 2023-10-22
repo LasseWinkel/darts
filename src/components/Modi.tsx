@@ -10,7 +10,7 @@ function Modi() {
       <nav>
         <ul>
           <li>
-            <Link to="/blinderkiller">Blinder Killer</Link>
+            <Link to="/blindkiller">Blinder Killer</Link>
           </li>
         </ul>
       </nav>
