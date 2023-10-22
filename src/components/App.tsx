@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import BlindKiller from "./BlindKiller";
 import Modi from "./Modi";
+import NumberAssignment from "./NumberAssignment";
 
 function App() {
   return (
@@ -12,10 +12,12 @@ function App() {
           <Route
             path="/blindkiller"
             element={
-              <BlindKiller
+              <NumberAssignment
                 players={[
-                  { name: "usr1", number: 3 },
-                  { name: "usr2", number: 4 },
+                  { name: "usr1", number: 0 },
+                  { name: "usr2", number: 0 },
+                  { name: "usr3", number: 0 },
+                  { name: "usr4", number: 0 },
                 ]}
               />
             }

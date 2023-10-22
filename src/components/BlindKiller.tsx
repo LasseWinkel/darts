@@ -1,8 +1,8 @@
 import "./BlindKiller.css";
 import Board from "./Board";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-type PlayerType = {
+export type PlayerType = {
   name: string;
   number: number;
 };
@@ -16,6 +16,14 @@ function BlindKiller(props: BlindKillerProps) {
 
   const [lives, setLives] = useState<number[]>(Array(21).fill(3));
   const [deadPlayers, setDeadPlayers] = useState<PlayerType[]>([]);
+  const [playersAlive, setAlivePlayers] = useState<PlayerType[]>(players);
+  const [winner, setWinner] = useState<PlayerType>({} as PlayerType);
+
+  useEffect(() => {
+    if (playersAlive.length === 1) {
+      setWinner(playersAlive[0]);
+    }
+  }, [playersAlive]);
 
   const hitNumber = (field: number, livesKilled: number) => {
     const newLives = [...lives];
@@ -24,6 +32,7 @@ function BlindKiller(props: BlindKillerProps) {
     if (newLives[field - 1] < 0) {
       newLives[field - 1] = 0;
     }
+    setLives(newLives);
 
     for (const player of players) {
       if (player.number === field && newLives[field - 1] === 0) {
@@ -32,10 +41,13 @@ function BlindKiller(props: BlindKillerProps) {
         );
         if (!playerIsAlreadyDead) {
           setDeadPlayers([...deadPlayers, player]);
+          const newAlivePlayers = playersAlive.filter(
+            (aPlayer) => aPlayer.name !== player.name
+          );
+          setAlivePlayers(newAlivePlayers);
         }
       }
     }
-    setLives(newLives);
   };
 
   return (
@@ -43,12 +55,18 @@ function BlindKiller(props: BlindKillerProps) {
       <header className="blind-killer-header">
         <h1>Blinder Killer</h1>
       </header>
-      <Board hitNumber={hitNumber} lives={lives} />
-      <div className="lives">
-        <span>{lives[20]}</span>
+      <div className="vertical">
+        <Board hitNumber={hitNumber} lives={lives} />
+        <div className="winner">{winner && winner.name}</div>
+      </div>
+      <div className="bull-count">
+        Bull: <span>{lives[20]}</span>
       </div>
       <div className="dead-players">
-        <span>{deadPlayers.map((aPlayer) => aPlayer.name)}</span>
+        Dead:{" "}
+        {deadPlayers.map((aPlayer) => (
+          <span>{aPlayer.name} </span>
+        ))}
       </div>
     </div>
   );
