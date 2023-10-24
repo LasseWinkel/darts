@@ -1,10 +1,6 @@
 .multiple {
   height: 20px;
   position: relative;
-
-  &:hover {
-    background-color: blue;
-  }
 }
 
 .double {
@@ -19,8 +15,16 @@
 
 .mblack {
   background-color: red;
+
+  &:hover {
+    background-color: darkred;
+  }
 }
 
 .mwhite {
   background-color: green;
+
+  &:hover {
+    background-color: darkgreen;
+  }
 }

@@ -13,7 +13,7 @@
   background-color: grey;
 
   &:hover {
-    background-color: blue;
+    background-color: darkgray;
   }
 }
 
@@ -24,7 +24,7 @@
   border: 2px solid grey;
 
   &:hover {
-    background-color: red;
+    background-color: darkgray;
   }
 }
 
@@ -38,7 +38,7 @@
   margin-bottom: 10px;
 
   &:hover {
-    background-color: green;
+    background-color: darkgray;
   }
 }
 

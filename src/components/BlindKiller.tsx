@@ -53,7 +53,7 @@ function BlindKiller(props: BlindKillerProps) {
   return (
     <div className="blind-killer">
       <header className="blind-killer-header">
-        <h1>Blinder Killer</h1>
+        <h1>Blind Killer</h1>
       </header>
       <div className="vertical">
         <Board hitNumber={hitNumber} lives={lives} />
