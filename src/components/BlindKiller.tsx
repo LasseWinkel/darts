@@ -50,6 +50,14 @@ function BlindKiller(props: BlindKillerProps) {
     }
   };
 
+  const checkIfPlayerHasNumber = (number: number) => {
+    const foundPlayer = players.find((aPlayer) => aPlayer.number === number);
+    if (foundPlayer) {
+      return foundPlayer.name;
+    }
+    return "-";
+  };
+
   return (
     <div className="blind-killer">
       <header className="blind-killer-header">
@@ -57,16 +65,23 @@ function BlindKiller(props: BlindKillerProps) {
       </header>
       <div className="vertical">
         <Board hitNumber={hitNumber} lives={lives} />
-        <div className="winner">{winner && winner.name}</div>
-      </div>
-      <div className="bull-count">
-        Bull: <span>{lives[20]}</span>
-      </div>
-      <div className="dead-players">
-        Dead:{" "}
-        {deadPlayers.map((aPlayer) => (
-          <span>{aPlayer.name} </span>
-        ))}
+        <table className="count-table">
+          <tr>
+            <th>Field</th>
+            <th>Lives</th>
+            <th>Player</th>
+          </tr>
+          {lives.map((aLive, aIndex) => {
+            return (
+              <tr>
+                <th>{aIndex === 20 ? "Bull" : aIndex + 1}</th>
+                <th>{aLive}</th>
+                <th>{aLive <= 0 ? checkIfPlayerHasNumber(aIndex + 1) : "-"}</th>
+              </tr>
+            );
+          })}
+        </table>
+        <div className="winner">Winner: {winner && winner.name}</div>
       </div>
     </div>
   );

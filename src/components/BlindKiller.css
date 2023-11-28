@@ -4,13 +4,21 @@
   align-items: center;
   justify-content: center;
 
+  .blind-killer-header {
+    margin-bottom: -20px;
+  }
+
   .vertical {
     display: flex;
     align-items: center;
 
+    .count-table {
+      margin-left: 200px;
+    }
+
     .winner {
       color: gold;
-      margin-left: 300px;
+      margin-left: 200px;
     }
   }
 }
