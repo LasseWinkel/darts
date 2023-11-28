@@ -1,6 +1,7 @@
 import "./BlindKiller.css";
 import Board from "./Board";
 import { useEffect, useState } from "react";
+import useSound from "use-sound";
 
 export type PlayerType = {
   name: string;
@@ -18,6 +19,7 @@ function BlindKiller(props: BlindKillerProps) {
   const [deadPlayers, setDeadPlayers] = useState<PlayerType[]>([]);
   const [playersAlive, setAlivePlayers] = useState<PlayerType[]>(players);
   const [winner, setWinner] = useState<PlayerType>({} as PlayerType);
+  const [playSound] = useSound("player-dead.mp3");
 
   useEffect(() => {
     if (playersAlive.length === 1) {
@@ -41,6 +43,7 @@ function BlindKiller(props: BlindKillerProps) {
         );
         if (!playerIsAlreadyDead) {
           setDeadPlayers([...deadPlayers, player]);
+          playSound();
           const newAlivePlayers = playersAlive.filter(
             (aPlayer) => aPlayer.name !== player.name
           );
@@ -82,6 +85,7 @@ function BlindKiller(props: BlindKillerProps) {
           })}
         </table>
         <div className="winner">Winner: {winner && winner.name}</div>
+        <button onClick={() => playSound}>Play Sound</button>
       </div>
     </div>
   );
