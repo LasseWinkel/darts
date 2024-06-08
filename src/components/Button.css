@@ -35,6 +35,7 @@
     rgb(167, 20, 42) 0%,
     rgb(247, 102, 102) 100%
   );
+  box-shadow: 0 0.7em 1.5em -0.5em #a7141498;
 }
 
 .button-cancel:hover {
@@ -51,6 +52,12 @@
 }
 
 .disabled {
-  background: grey !important;
+  background: grey;
   cursor: inherit;
+  box-shadow: none;
+}
+
+.disabled:hover {
+  box-shadow: none;
+  background: grey;
 }

@@ -15,7 +15,7 @@ function Segment(props: SegmentProps) {
       <div className="number-wrapper" onClick={() => hitNumber(0, 0)}>
         <span className="number">{number}</span>
         <span className="liveCount">
-          {liveCount !== undefined && `(${liveCount})`}
+          {liveCount !== undefined && `(${liveCount < 0 ? 0 : liveCount})`}
         </span>
       </div>
       <div

@@ -1,12 +1,6 @@
-import { log } from "console";
 import "./BlindKiller.css";
 import Board from "./Board";
-import { MouseEventHandler, useEffect, useRef, useState } from "react";
-import useSound from "use-sound";
-// import sound from "player-dead.mp3";
-// import "player-dead.mp3";
-
-// import sound from "../sounds/sound.mp3";
+import { useEffect, useState } from "react";
 
 import Button from "./Button";
 import { Link } from "react-router-dom";
@@ -16,6 +10,11 @@ export type PlayerType = {
   number: number;
   points: number;
 };
+
+interface BlindKillerLog {
+  field: number;
+  livesKilled: number;
+}
 
 interface BlindKillerProps {
   players: PlayerType[];
@@ -29,7 +28,7 @@ function BlindKiller(props: BlindKillerProps) {
   const [deadPlayers, setDeadPlayers] = useState<PlayerType[]>([]);
   const [playersAlive, setAlivePlayers] = useState<PlayerType[]>(players);
   const [winner, setWinner] = useState<PlayerType | undefined>(undefined);
-  const [playUseSound] = useSound("../sounds/sound.mp3");
+  const [log, setLog] = useState<BlindKillerLog[]>([]);
 
   useEffect(() => {
     if (playersAlive.length === 1) {
@@ -37,13 +36,41 @@ function BlindKiller(props: BlindKillerProps) {
     }
   }, [playersAlive]);
 
+  const stepBack = () => {
+    const { field, livesKilled } = { ...log[log.length - 1] };
+    reverseLastLog(field, livesKilled);
+  };
+
+  const reverseLastLog = (field: number, livesKilled: number) => {
+    const newLives = [...lives];
+
+    newLives[field - 1] = newLives[field - 1] + livesKilled;
+    setLives(newLives);
+
+    for (const player of players) {
+      if (player.number === field && newLives[field - 1] > 0) {
+        const playerIsAlreadyDead = deadPlayers.find(
+          (aPlayer) => aPlayer.name === player.name
+        );
+        if (playerIsAlreadyDead) {
+          const newDeadPlayers = deadPlayers.filter(
+            (aPlayer) => aPlayer.name !== player.name
+          );
+          setDeadPlayers(newDeadPlayers);
+          const newAlivePlayers = playersAlive.filter(
+            (aPlayer) => aPlayer.name === player.name
+          );
+          setAlivePlayers(newAlivePlayers);
+        }
+      }
+    }
+    setLog(log.slice(0, -1));
+  };
+
   const hitNumber = (field: number, livesKilled: number) => {
     const newLives = [...lives];
 
     newLives[field - 1] = newLives[field - 1] - livesKilled;
-    if (newLives[field - 1] < 0) {
-      newLives[field - 1] = 0;
-    }
     setLives(newLives);
 
     for (const player of players) {
@@ -53,7 +80,6 @@ function BlindKiller(props: BlindKillerProps) {
         );
         if (!playerIsAlreadyDead) {
           setDeadPlayers([...deadPlayers, player]);
-          // playSound();
           const newAlivePlayers = playersAlive.filter(
             (aPlayer) => aPlayer.name !== player.name
           );
@@ -61,6 +87,7 @@ function BlindKiller(props: BlindKillerProps) {
         }
       }
     }
+    setLog([...log, { field, livesKilled }]);
   };
 
   const checkIfPlayerHasNumber = (number: number) => {
@@ -70,28 +97,6 @@ function BlindKiller(props: BlindKillerProps) {
     }
     return "/";
   };
-
-  // const audioRef = useRef<HTMLAudioElement>(null);
-
-  // const playSound = () => {
-  //   if (audioRef.current) {
-  //     audioRef.current.play();
-  //   }
-  // };
-
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const playSound = () => {
-    setIsPlaying(true);
-  };
-
-  const handleSoundEnd = () => {
-    setIsPlaying(false);
-  };
-
-  const audio = new Audio("./sound.mp3");
-
-  // audio.play();
 
   return (
     <div className="blind-killer">
@@ -114,7 +119,7 @@ function BlindKiller(props: BlindKillerProps) {
                 }
               >
                 <th>{aIndex === 20 ? "Bull" : aIndex + 1}</th>
-                <th>{aLive}</th>
+                <th>{aLive < 0 ? 0 : aLive}</th>
                 <th>
                   {winner
                     ? checkIfPlayerHasNumber(aIndex + 1)
@@ -126,26 +131,30 @@ function BlindKiller(props: BlindKillerProps) {
             );
           })}
         </table>
-        {winner && (
-          <div className="blind-killer-end">
-            <div className="winner">Winner: {winner && winner.name}</div>
-            <Button styleName="button-confirm">
-              <Link className="link-inside-button" to="/modi">
-                New game <br /> (same players)
-              </Link>
-            </Button>
-            <Button styleName="button-confirm">
-              <Link className="link-inside-button" to="/">
-                New game <br /> (new players)
-              </Link>
-            </Button>
-          </div>
-        )}
-        {/* <Button handleClick={playUseSound}>Play Sound</Button> */}
-        {/* <audio autoPlay>
-          <source src="player-dead.mp3" type="audio/mpeg" />
-          Your browser does not support the audio element.
-        </audio> */}
+        <div className="blind-killer-end">
+          {winner && (
+            <>
+              <div className="winner">Winner: {winner && winner.name}</div>
+              <Button styleName="button-confirm">
+                <Link className="link-inside-button" to="/modi">
+                  New game <br /> (same players)
+                </Link>
+              </Button>
+              <Button styleName="button-confirm">
+                <Link className="link-inside-button" to="/">
+                  New game <br /> (new players)
+                </Link>
+              </Button>
+            </>
+          )}
+          <Button
+            disabled={log.length === 0}
+            styleName="button-cancel"
+            handleClick={stepBack}
+          >
+            Undo Last Hit
+          </Button>
+        </div>
       </div>
     </div>
   );
