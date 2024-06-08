@@ -1,0 +1,51 @@
+.blind-killer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+
+  .blind-killer-header {
+    font-size: 1.2rem;
+    color: darkorange;
+    text-shadow: 8px 8px 16px rgb(0, 0, 0, 1);
+    height: 10vh;
+  }
+
+  .vertical {
+    display: flex;
+    align-items: center;
+    height: 90vh;
+
+    .count-table {
+      margin-left: 100px;
+      font-size: 1.5rem;
+      color: darkorange;
+      text-shadow: 8px 8px 16px rgb(0, 0, 0, 1);
+
+      .winner-row {
+        background-color: green;
+      }
+
+      th {
+        border: 1px solid white;
+        padding: 0 4rem;
+      }
+    }
+
+    .blind-killer-end {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin-left: 100px;
+
+      .winner {
+        color: gold;
+        margin-bottom: 20px;
+        font-size: 3rem;
+      }
+    }
+  }
+}

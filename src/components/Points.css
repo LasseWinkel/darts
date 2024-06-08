@@ -1,0 +1,12 @@
+.points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../images/darts_board_dark.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

@@ -1,0 +1,62 @@
+.player-assignment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../images/darts_board.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: darkorange;
+}
+
+.player-assignment-header {
+  font-size: 5rem;
+  text-shadow: 8px 8px 16px rgb(0, 0, 0, 1);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 90vh;
+}
+
+.input-field {
+  font-size: 2rem;
+  padding: 15px;
+  border-radius: 50%;
+  border: none;
+  margin-bottom: 20px;
+}
+
+.button-confirm {
+  margin-bottom: 20px;
+}
+
+.link-inside-button {
+  text-decoration: none;
+  color: white;
+  padding: 0.7em 1.4em 0.7em 1.1em;
+  margin: -0.7em -1.4em -0.7em -1.1em;
+
+  &:hover {
+    color: lightblue;
+  }
+}
+
+.players-overview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 4rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
+
+.players-header {
+  font-size: 3rem;
+  font-weight: bold;
+}

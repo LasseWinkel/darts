@@ -1,0 +1,30 @@
+.multiple {
+  height: 2rem;
+  position: relative;
+}
+
+.double {
+  bottom: 14.8rem;
+  width: 6rem;
+}
+
+.triple {
+  bottom: 9.5rem;
+  width: 5rem;
+}
+
+.mblack {
+  background-color: red;
+
+  &:hover {
+    background-color: darkred;
+  }
+}
+
+.mwhite {
+  background-color: green;
+
+  &:hover {
+    background-color: darkgreen;
+  }
+}

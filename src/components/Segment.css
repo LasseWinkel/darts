@@ -1,0 +1,136 @@
+.segment-wrapper {
+  position: absolute;
+  transform-origin: bottom center;
+  /* margin-left: 10rem; */
+  bottom: 45vh;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  height: 19rem;
+  width: 6.3rem;
+  border-radius: 30%;
+  background-color: grey;
+
+  &:hover {
+    background-color: darkgray;
+  }
+}
+
+.segment {
+  height: 48rem;
+  width: 5rem;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  border: 2px solid grey;
+
+  &:hover {
+    background-color: darkgray;
+  }
+}
+
+.number-wrapper {
+  height: 10rem;
+  width: 8rem;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  border-radius: 10%;
+  margin-bottom: 0.7rem;
+  font-size: 1.4rem;
+
+  &:hover {
+    background-color: darkgray;
+  }
+}
+
+.number {
+  color: white;
+}
+
+.liveCount {
+  color: grey;
+}
+
+.black {
+  background-color: black;
+}
+
+.white {
+  background-color: white;
+}
+
+.n1 {
+  transform: rotate(18deg);
+}
+
+.n18 {
+  transform: rotate(36deg);
+}
+
+.n4 {
+  transform: rotate(54deg);
+}
+
+.n13 {
+  transform: rotate(72deg);
+}
+
+.n6 {
+  transform: rotate(90deg);
+}
+
+.n10 {
+  transform: rotate(108deg);
+}
+
+.n15 {
+  transform: rotate(126deg);
+}
+
+.n2 {
+  transform: rotate(144deg);
+}
+
+.n17 {
+  transform: rotate(162deg);
+}
+
+.n3 {
+  transform: rotate(180deg);
+}
+
+.n19 {
+  transform: rotate(198deg);
+}
+
+.n7 {
+  transform: rotate(216deg);
+}
+
+.n16 {
+  transform: rotate(234deg);
+}
+
+.n8 {
+  transform: rotate(252deg);
+}
+
+.n11 {
+  transform: rotate(270deg);
+}
+
+.n14 {
+  transform: rotate(288deg);
+}
+
+.n9 {
+  transform: rotate(306deg);
+}
+
+.n12 {
+  transform: rotate(324deg);
+}
+
+.n5 {
+  transform: rotate(342deg);
+}
