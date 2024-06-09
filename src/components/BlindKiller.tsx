@@ -33,6 +33,8 @@ function BlindKiller(props: BlindKillerProps) {
   useEffect(() => {
     if (playersAlive.length === 1) {
       setWinner(playersAlive[0]);
+    } else {
+      setWinner(undefined);
     }
   }, [playersAlive]);
 
@@ -57,10 +59,7 @@ function BlindKiller(props: BlindKillerProps) {
             (aPlayer) => aPlayer.name !== player.name
           );
           setDeadPlayers(newDeadPlayers);
-          const newAlivePlayers = playersAlive.filter(
-            (aPlayer) => aPlayer.name === player.name
-          );
-          setAlivePlayers(newAlivePlayers);
+          setAlivePlayers([...playersAlive, player]);
         }
       }
     }
