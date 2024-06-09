@@ -45,6 +45,7 @@
 
 .button:active {
   box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+  transform: scale(0.95);
 }
 
 .button-small {
@@ -60,4 +61,8 @@
 .disabled:hover {
   box-shadow: none;
   background: grey;
+}
+
+.disabled:active {
+  transform: none;
 }
