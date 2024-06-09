@@ -1,9 +1,12 @@
 import "./BlindKiller.css";
 import Board from "./Board";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Button from "./Button";
 import { Link } from "react-router-dom";
+
+// @ts-ignore
+import sound from "../sounds/fail-sound.mp3";
 
 export type PlayerType = {
   name: string;
@@ -30,11 +33,18 @@ function BlindKiller(props: BlindKillerProps) {
   const [winner, setWinner] = useState<PlayerType | undefined>(undefined);
   const [log, setLog] = useState<BlindKillerLog[]>([]);
 
+  const mountTimeRef = useRef(Date.now());
+
   useEffect(() => {
-    if (playersAlive.length === 1) {
-      setWinner(playersAlive[0]);
-    } else {
-      setWinner(undefined);
+    const currentTime = Date.now();
+    if (currentTime - mountTimeRef.current >= 2000) {
+      if (playersAlive.length === 1) {
+        setWinner(playersAlive[0]);
+      } else {
+        setWinner(undefined);
+      }
+      const audio = new Audio(sound);
+      audio.play();
     }
   }, [playersAlive]);
 
@@ -69,24 +79,34 @@ function BlindKiller(props: BlindKillerProps) {
   const hitNumber = (field: number, livesKilled: number) => {
     const newLives = [...lives];
 
-    newLives[field - 1] = newLives[field - 1] - livesKilled;
-    setLives(newLives);
+    const substractLive = () => {
+      newLives[field - 1] = newLives[field - 1] - livesKilled;
+      setLives(newLives);
 
-    for (const player of players) {
-      if (player.number === field && newLives[field - 1] === 0) {
-        const playerIsAlreadyDead = deadPlayers.find(
-          (aPlayer) => aPlayer.name === player.name
-        );
-        if (!playerIsAlreadyDead) {
-          setDeadPlayers([...deadPlayers, player]);
-          const newAlivePlayers = playersAlive.filter(
-            (aPlayer) => aPlayer.name !== player.name
+      for (const player of players) {
+        if (player.number === field && newLives[field - 1] <= 0) {
+          const playerIsAlreadyDead = deadPlayers.find(
+            (aPlayer) => aPlayer.name === player.name
           );
-          setAlivePlayers(newAlivePlayers);
+          if (!playerIsAlreadyDead) {
+            setDeadPlayers([...deadPlayers, player]);
+            const newAlivePlayers = playersAlive.filter(
+              (aPlayer) => aPlayer.name !== player.name
+            );
+            setAlivePlayers(newAlivePlayers);
+          }
         }
       }
+      setLog([...log, { field, livesKilled }]);
+    };
+
+    if (newLives[field - 1] - livesKilled <= 0) {
+      setTimeout(() => {
+        substractLive();
+      }, 1000);
+    } else {
+      substractLive();
     }
-    setLog([...log, { field, livesKilled }]);
   };
 
   const checkIfPlayerHasNumber = (number: number) => {
