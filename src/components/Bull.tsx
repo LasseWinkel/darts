@@ -9,7 +9,7 @@ function Bull(props: BullProps) {
 
   return (
     <div className="bull-wrapper">
-      <div className="single-bull" onClick={() => hitNumber(21, 1)}></div>
+      <div className="single-bull" onClick={() => hitNumber(21, 2)}></div>
       <div className="bulls-eye" onClick={() => hitNumber(21, 3)}></div>
     </div>
   );
