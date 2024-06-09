@@ -111,8 +111,8 @@ function PlayerAssignment(props: PlayerAssignmentProps) {
           {numberOfPlayers !== undefined && (
             <div className="players-header">Players:</div>
           )}
-          {updatedPlayers.map((aPlayer) => (
-            <div>{aPlayer.name}</div>
+          {updatedPlayers.map((aPlayer, aIndex) => (
+            <div key={aIndex}>{aPlayer.name}</div>
           ))}
         </div>
       </div>

@@ -52,7 +52,7 @@ function PointsGame(props: PointsGameProps) {
   };
 
   const hitNumber = (field: number, amount: number) => {
-    const isDoubleField = amount === 2 || (field === 21 && amount == 3);
+    const isDoubleField = amount === 2 || (field === 21 && amount === 3);
     const currentPlayerIndex = allPlayers.findIndex(
       (aPlayer) => aPlayer.name === currentPlayer.name
     );
@@ -120,9 +120,9 @@ function PointsGame(props: PointsGameProps) {
               <th>Player</th>
               <th>Points</th>
             </tr>
-            {allPlayers.map((aPlayer) => {
+            {allPlayers.map((aPlayer, aIndex) => {
               return (
-                <tr>
+                <tr key={aIndex}>
                   {currentPlayer.name === aPlayer.name ? (
                     <th className="current-player">
                       {aPlayer.name} ({4 - throwNumber})

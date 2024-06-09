@@ -116,6 +116,7 @@ function BlindKiller(props: BlindKillerProps) {
                 className={
                   winner && winner.number === aIndex + 1 ? "winner-row" : ""
                 }
+                key={aIndex}
               >
                 <th>{aIndex === 20 ? "Bull" : aIndex + 1}</th>
                 <th>{aLive < 0 ? 0 : aLive}</th>

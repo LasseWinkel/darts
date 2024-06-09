@@ -29,8 +29,8 @@ function Points(props: PointsProps) {
   return (
     <div className="points">
       {game === undefined &&
-        GAMES.map((aGame) => (
-          <React.Fragment>
+        GAMES.map((aGame, aIndex) => (
+          <React.Fragment key={aIndex}>
             <Button handleClick={() => setGame(aGame)}>{aGame}</Button>
             <br />
           </React.Fragment>
