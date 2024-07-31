@@ -15,13 +15,12 @@
 .player-assignment-header {
   font-size: 5rem;
   text-shadow: 8px 8px 16px rgb(0, 0, 0, 1);
+  margin: 2rem;
 }
 
 .content {
-  display: flex;
-  align-items: center;
+  display: flex;  
   justify-content: center;
-  flex-direction: column;
   height: 90vh;
 }
 
@@ -31,6 +30,10 @@
   border-radius: 50%;
   border: none;
   margin-bottom: 20px;
+}
+
+.button-wrapper {
+  margin-top: 10rem;
 }
 
 .button-confirm {
@@ -52,11 +55,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 4rem;
+  width: 20vw;
+  font-size: 2rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
 
 .players-header {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: bold;
+}
+
+.players-creation {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

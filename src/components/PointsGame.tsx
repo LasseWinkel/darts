@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Button from "./Button";
 import { Link } from "react-router-dom";
-import { PlayerType } from "./BlindKiller";
+import { PlayerType } from "../types";
 import { Games } from "./Points";
 
 interface PointsGameProps {

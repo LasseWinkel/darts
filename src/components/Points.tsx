@@ -1,6 +1,6 @@
 import "./Points.css";
 import Button from "./Button";
-import { PlayerType } from "./BlindKiller";
+import { PlayerType } from "../types";
 import { useState } from "react";
 import React from "react";
 import PointsGame from "./PointsGame";

@@ -1,39 +1,40 @@
 import { Link } from "react-router-dom";
-import { PlayerType } from "./BlindKiller";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import Button from "./Button";
 import "./PlayerAssignment.css";
+import { PlayerType } from "../types";
+import { PlayerService } from "../backendservices/playerservice";
 
-interface PlayerAssignmentProps {
-  setPlayers: (players: PlayerType[]) => void;
-}
-
-function PlayerAssignment(props: PlayerAssignmentProps) {
-  const { setPlayers } = props;
-
-  const [updatedPlayers, setUpdatedPlayers] = useState<PlayerType[]>([]);
-  const [numberOfPlayers, setNumberOfPlayers] = useState<number | undefined>(
-    undefined
-  );
-  const [enteredNumberOfPlayers, setEnteredNumberOfPlayers] = useState<
-    number | undefined
-  >(undefined);
+function PlayerAssignment() {
+  const [players, setPlayers] = useState<PlayerType[]>([]);
   const [enteredPlayerName, setEnteredPlayerName] = useState<string>("");
+
+  useEffect(() => {
+    PlayerService.fetchPlayers().then((newPlayers) => setPlayers(newPlayers));
+  }, []);
 
   const addPlayer = (playerName: string) => {
     if (playerName.length > 0) {
-      setUpdatedPlayers([
-        ...updatedPlayers,
-        {
-          name: playerName,
-          number: 0,
-          points: 0,
-        },
-      ]);
+      const newPlayer: PlayerType = {
+        id: players.length,
+        name: playerName,
+        number: 0,
+        points: 0,
+      };
+
+      PlayerService.addPlayer(newPlayer).then((newPlayers) =>
+        setPlayers(newPlayers)
+      );
+
       setEnteredPlayerName("");
     }
   };
+
+  const nameIsInvalid =
+    enteredPlayerName === "" ||
+    players.some((aPlayer) => aPlayer.name === enteredPlayerName) ||
+    players.length >= 21;
 
   return (
     <div className="player-assignment">
@@ -41,79 +42,61 @@ function PlayerAssignment(props: PlayerAssignmentProps) {
         <h1 className="player-assignment-header">New Darts Game</h1>
       </header>
       <div className="content">
-        {numberOfPlayers === undefined && (
-          <React.Fragment>
-            <input
-              className="input-field"
-              type="number"
-              placeholder="Number of players"
-              value={enteredNumberOfPlayers}
-              onChange={(e) => {
-                setEnteredNumberOfPlayers(parseInt(e.target.value));
-              }}
-              onKeyDown={(e) =>
-                e.key === "Enter" && setNumberOfPlayers(enteredNumberOfPlayers)
-              }
-              autoFocus
-            />
-            <Button
-              styleName="button-confirm"
-              disabled={!enteredNumberOfPlayers || enteredNumberOfPlayers < 1}
-              handleClick={() => setNumberOfPlayers(enteredNumberOfPlayers)}
-            >
-              Confirm number of players
-            </Button>
-          </React.Fragment>
-        )}
-        {numberOfPlayers &&
-          numberOfPlayers > 0 &&
-          updatedPlayers.length < numberOfPlayers && (
+        <div className="players-overview">
+          {<div className="players-header">Players:</div>}
+          {players.map((aPlayer, aIndex) => (
+            <div key={aIndex}>
+              {aPlayer.id + 1}. {aPlayer.name}
+            </div>
+          ))}
+        </div>
+        <div className="players-creation">
+          {
             <React.Fragment>
               <input
                 className="input-field"
                 type="text"
-                placeholder={`Name of player ${
-                  updatedPlayers.length + 1
-                }/${numberOfPlayers}`}
+                placeholder={`Name of ${players.length + 1}. Player`}
+                maxLength={10}
                 value={enteredPlayerName}
                 onChange={(e) => setEnteredPlayerName(e.target.value)}
                 onKeyDown={(e) =>
-                  e.key === "Enter" && addPlayer(enteredPlayerName)
+                  e.key === "Enter" &&
+                  !nameIsInvalid &&
+                  addPlayer(enteredPlayerName)
                 }
                 autoFocus
               />
               <Button
                 styleName="button-confirm"
                 handleClick={() => addPlayer(enteredPlayerName)}
-                disabled={enteredPlayerName === ""}
+                disabled={nameIsInvalid}
               >
                 Confirm player name
               </Button>
             </React.Fragment>
-          )}
+          }
 
-        {updatedPlayers.length === numberOfPlayers && (
-          <div className="button-wrapper">
-            <Button handleClick={() => setPlayers(updatedPlayers)}>
-              <Link className="link-inside-button" to="/modi">
-                Games
-              </Link>
-            </Button>
-            <br />
-            <Button styleName="button-cancel">
-              <Link className="link-inside-button" to="/" reloadDocument>
-                Back
-              </Link>
-            </Button>
-          </div>
-        )}
-        <div className="players-overview">
-          {numberOfPlayers !== undefined && (
-            <div className="players-header">Players:</div>
+          {players.length > 0 && (
+            <div className="button-wrapper">
+              <Button>
+                <Link className="link-inside-button" to="/modi">
+                  Proceed
+                </Link>
+              </Button>
+              <br />
+              <Button
+                styleName="button-cancel"
+                handleClick={() => {
+                  PlayerService.deletePlayer(players[players.length - 1]).then(
+                    (newPlayers) => setPlayers(newPlayers)
+                  );
+                }}
+              >
+                Delete Last Player
+              </Button>
+            </div>
           )}
-          {updatedPlayers.map((aPlayer, aIndex) => (
-            <div key={aIndex}>{aPlayer.name}</div>
-          ))}
         </div>
       </div>
     </div>

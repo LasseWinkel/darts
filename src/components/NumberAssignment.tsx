@@ -1,43 +1,51 @@
-import BlindKiller, { PlayerType } from "./BlindKiller";
-import { useState } from "react";
+import BlindKiller from "./BlindKiller";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import "./NumberAssignment.css";
 import React from "react";
+import { PlayerType } from "../types";
+import { PlayerService } from "../backendservices/playerservice";
+import { BlindKillerService } from "../backendservices/blindkillerservice";
 
-interface NumberAssignmentProps {
-  players: PlayerType[];
-}
-
-function NumberAssignment(props: NumberAssignmentProps) {
-  const { players } = props;
-
-  const [numberOfLives, setNumberOfLives] = useState<number | undefined>(
-    undefined
-  );
+function NumberAssignment() {
+  const [players, setPlayers] = useState<PlayerType[]>([]);
   const [enteredNumberOfLives, setEnteredNumberOfLives] = useState<
     number | undefined
   >(undefined);
+  const [numberOfLives, setNumberOfLives] = useState<number>(0);
   const [playerIndex, setPlayerIndex] = useState(0);
-  const [updatedPlayers, setUpdatedPlayers] = useState<PlayerType[]>([]);
-  const [startGame, setStartGame] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
+
+  useEffect(() => {
+    PlayerService.fetchPlayers().then((newPlayers) => setPlayers(newPlayers));
+    BlindKillerService.fetchNumberOfLives().then((numberOfLives) =>
+      setNumberOfLives(numberOfLives)
+    );
+    BlindKillerService.getGameStarted().then((newGameStarted) =>
+      setGameStarted(newGameStarted)
+    );
+  }, []);
 
   const drawRandomNumber = () => {
     let randomNumber = Math.floor(Math.random() * 21) + 1;
-    let numberAlreadyExists = updatedPlayers.find(
+    let numberAlreadyExists = players.find(
       (aPlayer) => aPlayer.number === randomNumber
     );
     while (numberAlreadyExists) {
       randomNumber = Math.floor(Math.random() * 21) + 1;
-      numberAlreadyExists = updatedPlayers.find(
+      numberAlreadyExists = players.find(
         (aPlayer) => aPlayer.number === randomNumber
       );
     }
     return randomNumber;
   };
 
+  const numberOfLivesIsInvalid =
+    !enteredNumberOfLives || enteredNumberOfLives < 1;
+
   return (
     <div className="number-assignment">
-      {numberOfLives === undefined && (
+      {!gameStarted && numberOfLives === 0 && (
         <React.Fragment>
           <input
             className="input-field"
@@ -47,49 +55,74 @@ function NumberAssignment(props: NumberAssignmentProps) {
             onChange={(e) => {
               setEnteredNumberOfLives(parseInt(e.target.value));
             }}
-            onKeyDown={(e) =>
-              e.key === "Enter" && setNumberOfLives(enteredNumberOfLives)
-            }
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !numberOfLivesIsInvalid) {
+                BlindKillerService.setNumberOfLives(enteredNumberOfLives).then(
+                  (newNumberOfLives) => setNumberOfLives(newNumberOfLives)
+                );
+                for (let i = 0; i <= 21; i++) {
+                  BlindKillerService.setLives({
+                    field: i,
+                    lives: enteredNumberOfLives,
+                  });
+                }
+              }
+            }}
             autoFocus
           />
           <Button
             styleName="button-confirm"
-            disabled={!enteredNumberOfLives || enteredNumberOfLives < 1}
-            handleClick={() => setNumberOfLives(enteredNumberOfLives)}
+            disabled={numberOfLivesIsInvalid}
+            handleClick={() => {
+              if (enteredNumberOfLives) {
+                BlindKillerService.setNumberOfLives(enteredNumberOfLives).then(
+                  (newNumberOfLives) => setNumberOfLives(newNumberOfLives)
+                );
+                for (let i = 0; i <= 21; i++) {
+                  BlindKillerService.setLives({
+                    field: i,
+                    lives: enteredNumberOfLives,
+                  });
+                }
+              }
+            }}
           >
             Confirm number of lives
           </Button>
         </React.Fragment>
       )}
-      {numberOfLives !== undefined && !startGame && (
+      {!gameStarted && numberOfLives > 0 && (
         <div className="name">
           {players[playerIndex].name}:{" "}
-          {updatedPlayers[playerIndex]
-            ? updatedPlayers[playerIndex].number === 21
+          {players[playerIndex]
+            ? players[playerIndex].number === 21
               ? "Bull"
-              : updatedPlayers[playerIndex].number
+              : players[playerIndex].number
             : ""}
         </div>
       )}
-      {numberOfLives !== undefined &&
-        updatedPlayers[playerIndex] === undefined && (
+      {!gameStarted &&
+        numberOfLives > 0 &&
+        players.length > 0 &&
+        players[playerIndex].number === 0 && (
           <Button
             styleName="show-button"
-            handleClick={() =>
-              setUpdatedPlayers([
-                ...updatedPlayers,
-                {
-                  ...updatedPlayers[playerIndex],
-                  name: players[playerIndex].name,
-                  number: drawRandomNumber(),
-                },
-              ])
-            }
+            handleClick={() => {
+              const newPlayer = {
+                ...players[playerIndex],
+                number: drawRandomNumber(),
+              };
+              PlayerService.updatePlayer(newPlayer).then((newPlayers) =>
+                setPlayers(newPlayers)
+              );
+            }}
           >
             Show number
           </Button>
         )}
-      {updatedPlayers[playerIndex] !== undefined &&
+      {!gameStarted &&
+        players.length > 0 &&
+        players[playerIndex].number !== 0 &&
         playerIndex < players.length - 1 && (
           <Button
             styleName="confirm-button"
@@ -98,19 +131,22 @@ function NumberAssignment(props: NumberAssignmentProps) {
             Alright
           </Button>
         )}
-      {playerIndex === players.length - 1 &&
-        updatedPlayers[playerIndex] !== undefined &&
-        !startGame && (
+      {!gameStarted &&
+        playerIndex === players.length - 1 &&
+        players[playerIndex] !== undefined &&
+        players[playerIndex].number !== 0 && (
           <Button
             styleName="start-button"
-            handleClick={() => setStartGame(true)}
+            handleClick={() =>
+              BlindKillerService.setGameStarted(true).then((newGameStarted) =>
+                setGameStarted(newGameStarted)
+              )
+            }
           >
             Start the game
           </Button>
         )}
-      {startGame && (
-        <BlindKiller players={updatedPlayers} numberOfLives={numberOfLives} />
-      )}
+      {gameStarted && <BlindKiller />}
     </div>
   );
 }

@@ -6,34 +6,37 @@ import Button from "./Button";
 import { Link } from "react-router-dom";
 
 // @ts-ignore
-import sound from "../sounds/fail-sound.mp3";
-
-export type PlayerType = {
-  name: string;
-  number: number;
-  points: number;
-};
+import failureSound from "../sounds/fail-sound.mp3";
+// @ts-ignore
+import drumRoll from "../sounds/drum-roll.mp3";
+import { Lives, PlayerType } from "../types";
+import { BlindKillerService } from "../backendservices/blindkillerservice";
+import { PlayerService } from "../backendservices/playerservice";
 
 interface BlindKillerLog {
   field: number;
   livesKilled: number;
 }
 
-interface BlindKillerProps {
-  players: PlayerType[];
-  numberOfLives?: number;
-}
+function BlindKiller() {
+  const [numberOfLives, setNumberOfLives] = useState<number>(0);
+  const [players, setPlayers] = useState<PlayerType[]>([]);
+  const [lives, setLives] = useState<Lives[]>(Array(21).fill(1));
 
-function BlindKiller(props: BlindKillerProps) {
-  const { players, numberOfLives } = props;
-
-  const [lives, setLives] = useState<number[]>(Array(21).fill(numberOfLives));
   const [deadPlayers, setDeadPlayers] = useState<PlayerType[]>([]);
   const [playersAlive, setAlivePlayers] = useState<PlayerType[]>(players);
   const [winner, setWinner] = useState<PlayerType | undefined>(undefined);
   const [log, setLog] = useState<BlindKillerLog[]>([]);
 
   const mountTimeRef = useRef(Date.now());
+
+  useEffect(() => {
+    BlindKillerService.fetchNumberOfLives().then((numOfLives) =>
+      setNumberOfLives(numOfLives)
+    );
+    PlayerService.fetchPlayers().then((aPlayers) => setPlayers(aPlayers));
+    BlindKillerService.getCurrentLives().then((lives) => setLives(lives));
+  }, []);
 
   useEffect(() => {
     const currentTime = Date.now();
@@ -43,8 +46,6 @@ function BlindKiller(props: BlindKillerProps) {
       } else {
         setWinner(undefined);
       }
-      const audio = new Audio(sound);
-      audio.play();
     }
   }, [playersAlive]);
 
@@ -56,11 +57,13 @@ function BlindKiller(props: BlindKillerProps) {
   const reverseLastLog = (field: number, livesKilled: number) => {
     const newLives = [...lives];
 
-    newLives[field - 1] = newLives[field - 1] + livesKilled;
-    setLives(newLives);
+    BlindKillerService.setLives({
+      ...lives[field - 1],
+      lives: newLives[field - 1].lives + livesKilled,
+    }).then((updatedLives) => setLives(updatedLives));
 
     for (const player of players) {
-      if (player.number === field && newLives[field - 1] > 0) {
+      if (player.number === field && newLives[field - 1].lives > 0) {
         const playerIsAlreadyDead = deadPlayers.find(
           (aPlayer) => aPlayer.name === player.name
         );
@@ -80,11 +83,13 @@ function BlindKiller(props: BlindKillerProps) {
     const newLives = [...lives];
 
     const substractLive = () => {
-      newLives[field - 1] = newLives[field - 1] - livesKilled;
-      setLives(newLives);
+      BlindKillerService.setLives({
+        ...lives[field - 1],
+        lives: newLives[field - 1].lives - livesKilled,
+      }).then((updatedLives) => setLives(updatedLives));
 
       for (const player of players) {
-        if (player.number === field && newLives[field - 1] <= 0) {
+        if (player.number === field && newLives[field - 1].lives <= 0) {
           const playerIsAlreadyDead = deadPlayers.find(
             (aPlayer) => aPlayer.name === player.name
           );
@@ -94,13 +99,17 @@ function BlindKiller(props: BlindKillerProps) {
               (aPlayer) => aPlayer.name !== player.name
             );
             setAlivePlayers(newAlivePlayers);
+            const audio = new Audio(failureSound);
+            audio.play();
           }
         }
       }
       setLog([...log, { field, livesKilled }]);
     };
 
-    if (newLives[field - 1] - livesKilled <= 0) {
+    if (newLives[field - 1].lives - livesKilled <= 0) {
+      const audio = new Audio(drumRoll);
+      audio.play();
       setTimeout(() => {
         substractLive();
       }, 1000);
@@ -130,21 +139,23 @@ function BlindKiller(props: BlindKillerProps) {
             <th>Lives</th>
             <th>Player</th>
           </tr>
-          {lives.map((aLive, aIndex) => {
+          {lives.map((aLives) => {
             return (
               <tr
                 className={
-                  winner && winner.number === aIndex + 1 ? "winner-row" : ""
+                  winner && winner.number === aLives.field + 1
+                    ? "winner-row"
+                    : ""
                 }
-                key={aIndex}
+                key={aLives.field}
               >
-                <th>{aIndex === 20 ? "Bull" : aIndex + 1}</th>
-                <th>{aLive < 0 ? 0 : aLive}</th>
+                <th>{aLives.field === 20 ? "Bull" : aLives.field + 1}</th>
+                <th>{aLives.lives < 0 ? 0 : aLives.lives}</th>
                 <th>
                   {winner
-                    ? checkIfPlayerHasNumber(aIndex + 1)
-                    : aLive <= 0
-                    ? checkIfPlayerHasNumber(aIndex + 1)
+                    ? checkIfPlayerHasNumber(aLives.field + 1)
+                    : aLives.lives <= 0
+                    ? checkIfPlayerHasNumber(aLives.field + 1)
                     : ""}
                 </th>
               </tr>
