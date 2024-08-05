@@ -169,10 +169,9 @@ def update_lives(field):
     )
 
 
-# Change value to boolean
 class GameStarted(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    value = db.Column(db.Integer, nullable=False)
+    value = db.Column(db.Boolean, nullable=False)
 
 
 @app.route("/api/blindkiller/gamestarted", methods=["GET"])
@@ -204,14 +203,14 @@ with app.app_context():
         db.session.add(initial_num_of_lives_entry)
         db.session.commit()
 
-    for index in range(0, 22):
+    for index in range(0, 21):
         if Lives.query.get(index) is None:
             initial_lives = Lives(field=index, lives=0)
             db.session.add(initial_lives)
             db.session.commit()
 
     if GameStarted.query.get(0) is None:
-        initial_game_started = GameStarted(id=0, value=0)
+        initial_game_started = GameStarted(id=0, value=False)
         db.session.add(initial_game_started)
         db.session.commit()
 
