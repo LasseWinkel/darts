@@ -1,2 +1,2 @@
-export type { PlayerType } from "./player";
-export type { Lives } from "./lives";
+export { PlayerTypeMock, type PlayerType } from "./player";
+export { LivesMock, type Lives } from "./lives";

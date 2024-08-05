@@ -5,6 +5,7 @@ import Button from "./Button";
 import "./PlayerAssignment.css";
 import { PlayerType } from "../types";
 import { PlayerService } from "../backendservices/playerservice";
+import { BlindKillerService } from "../backendservices/blindkillerservice";
 
 function PlayerAssignment() {
   const [players, setPlayers] = useState<PlayerType[]>([]);
@@ -79,7 +80,14 @@ function PlayerAssignment() {
 
           {players.length > 0 && (
             <div className="button-wrapper">
-              <Button>
+              <Button
+                handleClick={() => {
+                  BlindKillerService.resetBlindKiller();
+                  for (const player of players) {
+                    PlayerService.updatePlayer({ ...player, number: 0 });
+                  }
+                }}
+              >
                 <Link className="link-inside-button" to="/modi">
                   Proceed
                 </Link>

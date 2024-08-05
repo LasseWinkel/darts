@@ -3,21 +3,20 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 import "./NumberAssignment.css";
 import React from "react";
-import { PlayerType } from "../types";
+import { PlayerType, PlayerTypeMock } from "../types";
 import { PlayerService } from "../backendservices/playerservice";
 import { BlindKillerService } from "../backendservices/blindkillerservice";
 
 function NumberAssignment() {
-  const [players, setPlayers] = useState<PlayerType[]>([]);
-  const [enteredNumberOfLives, setEnteredNumberOfLives] = useState<
-    number | undefined
-  >(undefined);
+  const [players, setPlayers] = useState<PlayerType[]>([PlayerTypeMock]);
+  const [enteredNumberOfLives, setEnteredNumberOfLives] = useState<number>(0);
   const [numberOfLives, setNumberOfLives] = useState<number>(0);
   const [playerIndex, setPlayerIndex] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     PlayerService.fetchPlayers().then((newPlayers) => setPlayers(newPlayers));
+
     BlindKillerService.fetchNumberOfLives().then((numberOfLives) =>
       setNumberOfLives(numberOfLives)
     );
@@ -51,7 +50,8 @@ function NumberAssignment() {
             className="input-field"
             type="number"
             placeholder="Number of lives"
-            value={enteredNumberOfLives}
+            value={enteredNumberOfLives <= 0 ? "" : enteredNumberOfLives}
+            min={1}
             onChange={(e) => {
               setEnteredNumberOfLives(parseInt(e.target.value));
             }}
@@ -60,7 +60,7 @@ function NumberAssignment() {
                 BlindKillerService.setNumberOfLives(enteredNumberOfLives).then(
                   (newNumberOfLives) => setNumberOfLives(newNumberOfLives)
                 );
-                for (let i = 0; i <= 21; i++) {
+                for (let i = 0; i < 21; i++) {
                   BlindKillerService.setLives({
                     field: i,
                     lives: enteredNumberOfLives,
@@ -78,7 +78,7 @@ function NumberAssignment() {
                 BlindKillerService.setNumberOfLives(enteredNumberOfLives).then(
                   (newNumberOfLives) => setNumberOfLives(newNumberOfLives)
                 );
-                for (let i = 0; i <= 21; i++) {
+                for (let i = 0; i < 21; i++) {
                   BlindKillerService.setLives({
                     field: i,
                     lives: enteredNumberOfLives,
@@ -94,16 +94,15 @@ function NumberAssignment() {
       {!gameStarted && numberOfLives > 0 && (
         <div className="name">
           {players[playerIndex].name}:{" "}
-          {players[playerIndex]
-            ? players[playerIndex].number === 21
-              ? "Bull"
-              : players[playerIndex].number
-            : ""}
+          {players[playerIndex].number === 0
+            ? ""
+            : players[playerIndex].number === 21
+            ? "Bull"
+            : players[playerIndex].number}
         </div>
       )}
       {!gameStarted &&
         numberOfLives > 0 &&
-        players.length > 0 &&
         players[playerIndex].number === 0 && (
           <Button
             styleName="show-button"
@@ -121,7 +120,6 @@ function NumberAssignment() {
           </Button>
         )}
       {!gameStarted &&
-        players.length > 0 &&
         players[playerIndex].number !== 0 &&
         playerIndex < players.length - 1 && (
           <Button
@@ -133,7 +131,6 @@ function NumberAssignment() {
         )}
       {!gameStarted &&
         playerIndex === players.length - 1 &&
-        players[playerIndex] !== undefined &&
         players[playerIndex].number !== 0 && (
           <Button
             styleName="start-button"

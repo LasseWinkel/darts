@@ -4,3 +4,10 @@ export type PlayerType = {
   number: number;
   points: number;
 };
+
+export const PlayerTypeMock: PlayerType = {
+  id: 0,
+  name: "",
+  number: 1,
+  points: 0,
+};

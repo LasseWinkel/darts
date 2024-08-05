@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import failureSound from "../sounds/fail-sound.mp3";
 // @ts-ignore
 import drumRoll from "../sounds/drum-roll.mp3";
-import { Lives, PlayerType } from "../types";
+import { Lives, LivesMock, PlayerType } from "../types";
 import { BlindKillerService } from "../backendservices/blindkillerservice";
 import { PlayerService } from "../backendservices/playerservice";
 
@@ -21,7 +21,7 @@ interface BlindKillerLog {
 function BlindKiller() {
   const [numberOfLives, setNumberOfLives] = useState<number>(0);
   const [players, setPlayers] = useState<PlayerType[]>([]);
-  const [lives, setLives] = useState<Lives[]>(Array(21).fill(1));
+  const [lives, setLives] = useState<Lives[]>(Array(21).fill(LivesMock));
 
   const [deadPlayers, setDeadPlayers] = useState<PlayerType[]>([]);
   const [playersAlive, setAlivePlayers] = useState<PlayerType[]>(players);
@@ -35,6 +35,7 @@ function BlindKiller() {
       setNumberOfLives(numOfLives)
     );
     PlayerService.fetchPlayers().then((aPlayers) => setPlayers(aPlayers));
+    PlayerService.fetchPlayers().then((aPlayers) => setAlivePlayers(aPlayers));
     BlindKillerService.getCurrentLives().then((lives) => setLives(lives));
   }, []);
 
@@ -80,13 +81,14 @@ function BlindKiller() {
   };
 
   const hitNumber = (field: number, livesKilled: number) => {
-    const newLives = [...lives];
+    let newLives = [...lives];
 
     const substractLive = () => {
       BlindKillerService.setLives({
         ...lives[field - 1],
         lives: newLives[field - 1].lives - livesKilled,
       }).then((updatedLives) => setLives(updatedLives));
+      newLives[field - 1].lives = newLives[field - 1].lives - livesKilled;
 
       for (const player of players) {
         if (player.number === field && newLives[field - 1].lives <= 0) {
@@ -95,6 +97,7 @@ function BlindKiller() {
           );
           if (!playerIsAlreadyDead) {
             setDeadPlayers([...deadPlayers, player]);
+
             const newAlivePlayers = playersAlive.filter(
               (aPlayer) => aPlayer.name !== player.name
             );
@@ -107,7 +110,10 @@ function BlindKiller() {
       setLog([...log, { field, livesKilled }]);
     };
 
-    if (newLives[field - 1].lives - livesKilled <= 0) {
+    if (
+      newLives[field - 1].lives > 0 &&
+      newLives[field - 1].lives - livesKilled <= 0
+    ) {
       const audio = new Audio(drumRoll);
       audio.play();
       setTimeout(() => {
@@ -134,33 +140,37 @@ function BlindKiller() {
       <div className="vertical">
         <Board hitNumber={hitNumber} lives={lives} />
         <table className="count-table">
-          <tr>
-            <th>Field</th>
-            <th>Lives</th>
-            <th>Player</th>
-          </tr>
-          {lives.map((aLives) => {
-            return (
-              <tr
-                className={
-                  winner && winner.number === aLives.field + 1
-                    ? "winner-row"
-                    : ""
-                }
-                key={aLives.field}
-              >
-                <th>{aLives.field === 20 ? "Bull" : aLives.field + 1}</th>
-                <th>{aLives.lives < 0 ? 0 : aLives.lives}</th>
-                <th>
-                  {winner
-                    ? checkIfPlayerHasNumber(aLives.field + 1)
-                    : aLives.lives <= 0
-                    ? checkIfPlayerHasNumber(aLives.field + 1)
-                    : ""}
-                </th>
-              </tr>
-            );
-          })}
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Lives</th>
+              <th>Player</th>
+            </tr>
+          </thead>
+          <tbody>
+            {lives.map((aLives) => {
+              return (
+                <tr
+                  className={
+                    winner && winner.number === aLives.field + 1
+                      ? "winner-row"
+                      : ""
+                  }
+                  key={Math.random()}
+                >
+                  <th>{aLives.field === 20 ? "Bull" : aLives.field + 1}</th>
+                  <th>{aLives.lives < 0 ? 0 : aLives.lives}</th>
+                  <th>
+                    {winner
+                      ? checkIfPlayerHasNumber(aLives.field + 1)
+                      : aLives.lives <= 0
+                      ? checkIfPlayerHasNumber(aLives.field + 1)
+                      : ""}
+                  </th>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
         <div className="blind-killer-end">
           {winner && (
