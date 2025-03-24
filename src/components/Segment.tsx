@@ -11,7 +11,11 @@ interface SegmentProps {
 function Segment(props: SegmentProps) {
   const { number, color, liveCount, hitNumber } = props;
   return (
-    <div className={`segment-wrapper n${number}`}>
+    <div
+      className={`segment-wrapper n${number} ${
+        liveCount && liveCount <= 0 && "dead"
+      }`}
+    >
       <div className="number-wrapper" onClick={() => hitNumber(0, 0)}>
         <span className="number">{number}</span>
         <span className="liveCount">
@@ -19,7 +23,7 @@ function Segment(props: SegmentProps) {
         </span>
       </div>
       <div
-        className={`segment ${color}`}
+        className={`segment ${color} ${liveCount && liveCount <= 0 && "dead"}`}
         onClick={() => hitNumber(number, 1)}
       />
       <Multiple

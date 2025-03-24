@@ -134,3 +134,7 @@
 .n5 {
   transform: rotate(342deg);
 }
+
+.dead {
+  background-color: skyblue !important;
+}
