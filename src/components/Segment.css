@@ -136,5 +136,9 @@
 }
 
 .dead {
-  background-color: skyblue !important;
+  filter: brightness(0.2);
+}
+
+.segment-wrapper.dead {
+  pointer-events: none;
 }
