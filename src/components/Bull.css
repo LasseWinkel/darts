@@ -28,3 +28,7 @@
     background-color: darkred;
   }
 }
+
+.bull-wrapper.dead {
+  pointer-events: none;
+}

@@ -1,14 +1,17 @@
 import "./Bull.css";
 
 interface BullProps {
+  liveCount?: number;
   hitNumber: (field: number, livesKilled: number) => void;
 }
 
 function Bull(props: BullProps) {
-  const { hitNumber } = props;
+  const { liveCount, hitNumber } = props;
+
+  const isDead = liveCount !== undefined && liveCount <= 0;
 
   return (
-    <div className="bull-wrapper">
+    <div className={`bull-wrapper ${isDead ? "dead" : ""}`}>
       <div className="single-bull" onClick={() => hitNumber(21, 2)}></div>
       <div className="bulls-eye" onClick={() => hitNumber(21, 3)}></div>
     </div>

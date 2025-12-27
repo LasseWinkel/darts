@@ -133,7 +133,7 @@ function Board(props: BoardProps) {
         hitNumber={hitNumber}
         liveCount={lives && lives[19].lives}
       />
-      <Bull hitNumber={hitNumber} />
+      <Bull liveCount={lives && lives[20].lives} hitNumber={hitNumber} />
     </div>
   );
 }
