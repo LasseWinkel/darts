@@ -185,7 +185,7 @@ function BlindKiller() {
                 handleClick={BlindKillerService.resetBlindKiller}
                 styleName="button-confirm"
               >
-                <Link className="link-inside-button" to="/modi">
+                <Link className="link-inside-button small-font" to="/modi">
                   New game <br /> (same players)
                 </Link>
               </Button>
@@ -193,7 +193,7 @@ function BlindKiller() {
                 handleClick={BlindKillerService.resetBlindKiller}
                 styleName="button-confirm"
               >
-                <Link className="link-inside-button" to="/">
+                <Link className="link-inside-button small-font" to="/">
                   New game <br /> (new players)
                 </Link>
               </Button>
