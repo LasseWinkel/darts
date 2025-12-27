@@ -14,7 +14,6 @@ import dartThrow from "../sounds/dart-throw.mp3";
 import { Lives, LivesMock, PlayerType } from "../types";
 import { BlindKillerService } from "../services/blindkillerservice";
 import { PlayerService } from "../services/playerservice";
-import { usePreventRefresh } from "../hooks/usePreventRefresh";
 
 interface BlindKillerLog {
   field: number;
@@ -32,8 +31,6 @@ function BlindKiller() {
   const [log, setLog] = useState<BlindKillerLog[]>([]);
 
   const mountTimeRef = useRef(Date.now());
-
-  usePreventRefresh(true);
 
   useEffect(() => {
     BlindKillerService.fetchNumberOfLives().then((numOfLives) =>

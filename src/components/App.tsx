@@ -4,8 +4,10 @@ import Modi from "./Modi";
 import NumberAssignment from "./NumberAssignment";
 import PlayerAssignment from "./PlayerAssignment";
 import Points from "./Points";
+import { usePreventRefresh } from "../hooks/usePreventRefresh";
 
 function App() {
+  usePreventRefresh(true);
   return (
     <BrowserRouter>
       <div className="App">
