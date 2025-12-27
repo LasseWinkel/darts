@@ -16,6 +16,7 @@
   .vertical {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 90vh;
 
     .count-table {
@@ -23,14 +24,18 @@
       font-size: 1.3rem;
       color: darkorange;
       text-shadow: 8px 8px 16px rgb(0, 0, 0, 1);
+      border-collapse: collapse;
+
+      th,
+      td {
+        border: 1px solid white;
+        padding: 0 1rem;
+        text-align: center;
+        vertical-align: middle;
+      }
 
       .winner-row {
         background-color: green;
-      }
-
-      th {
-        border: 0.5px solid white;
-        padding: 0 1rem;
       }
     }
 
