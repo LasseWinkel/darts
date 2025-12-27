@@ -22,6 +22,7 @@
   -webkit-user-select: none;
   touch-action: manipulation;
   position: relative;
+  text-align: center;
 }
 
 .button:hover {

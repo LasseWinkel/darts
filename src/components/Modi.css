@@ -1,4 +1,5 @@
 .modi {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,4 +13,19 @@
   font-size: 3rem;
   color: darkorange;
   text-shadow: 8px 8px 16px rgb(0, 0, 0, 1);
+}
+
+/* Abdunkelndes Overlay für bessere Vordergrundwirkung */
+.modi::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+/* Vordergrund-Elemente klar hervorheben */
+.modi > * {
+  position: relative;
+  z-index: 1;
 }

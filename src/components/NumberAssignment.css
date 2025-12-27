@@ -1,4 +1,5 @@
 .number-assignment {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,6 +10,22 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+/* Abdunkelndes Overlay für bessere Vordergrundwirkung */
+.number-assignment::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55); /* Stärke anpassen */
+  backdrop-filter: blur(2px); /* optional */
+  z-index: 0;
+}
+
+/* Vordergrund-Elemente klar hervorheben */
+.number-assignment > * {
+  position: relative;
+  z-index: 1;
 }
 
 .name {
