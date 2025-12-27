@@ -19,7 +19,7 @@
 }
 
 .content {
-  display: flex;  
+  display: flex;
   justify-content: center;
   height: 90vh;
 }
@@ -27,9 +27,9 @@
 .input-field {
   font-size: 2rem;
   padding: 15px;
-  border-radius: 50%;
   border: none;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .button-wrapper {
