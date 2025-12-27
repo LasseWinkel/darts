@@ -6,7 +6,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: white;
-  font-family: Georgia, "Times New Roman", Times, serif;
+
+  /* Schriftarten-Vorschläge: einzeln einkommentieren */
+  font-family: "Montserrat", sans-serif;
+  /* font-family: "Lato", sans-serif; */
+  /* font-family: "Poppins", sans-serif; */
+  /* font-family: "Open Sans", sans-serif; */
+  /* font-family: "Raleway", sans-serif; */
+  /* font-family: "Roboto Slab", serif; */
+  /* font-family: "Merriweather", serif; */
+  /* font-family: "Playfair Display", serif; */
 }
 
 code {
