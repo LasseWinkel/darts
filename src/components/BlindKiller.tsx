@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import failureSound from "../sounds/fail-sound.mp3";
 // @ts-ignore
 import drumRoll from "../sounds/drum-roll.mp3";
+// @ts-ignore
+import dartThrow from "../sounds/dart-throw.mp3";
 import { Lives, LivesMock, PlayerType } from "../types";
 import { BlindKillerService } from "../backendservices/blindkillerservice";
 import { PlayerService } from "../backendservices/playerservice";
@@ -81,6 +83,9 @@ function BlindKiller() {
   };
 
   const hitNumber = (field: number, livesKilled: number) => {
+    const audio = new Audio(dartThrow);
+    audio.play();
+
     let newLives = [...lives];
 
     const substractLive = () => {
