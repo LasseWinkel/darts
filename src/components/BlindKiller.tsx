@@ -12,8 +12,8 @@ import drumRoll from "../sounds/drum-roll.mp3";
 // @ts-ignore
 import dartThrow from "../sounds/dart-throw.mp3";
 import { Lives, LivesMock, PlayerType } from "../types";
-import { BlindKillerService } from "../backendservices/blindkillerservice";
-import { PlayerService } from "../backendservices/playerservice";
+import { BlindKillerService } from "../services/blindkillerservice";
+import { PlayerService } from "../services/playerservice";
 
 interface BlindKillerLog {
   field: number;

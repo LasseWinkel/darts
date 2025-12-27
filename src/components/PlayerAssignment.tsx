@@ -4,8 +4,8 @@ import React from "react";
 import Button from "./Button";
 import "./PlayerAssignment.css";
 import { PlayerType } from "../types";
-import { PlayerService } from "../backendservices/playerservice";
-import { BlindKillerService } from "../backendservices/blindkillerservice";
+import { PlayerService } from "../services/playerservice";
+import { BlindKillerService } from "../services/blindkillerservice";
 
 function PlayerAssignment() {
   const [players, setPlayers] = useState<PlayerType[]>([]);

@@ -4,8 +4,8 @@ import Button from "./Button";
 import "./NumberAssignment.css";
 import React from "react";
 import { PlayerType, PlayerTypeMock } from "../types";
-import { PlayerService } from "../backendservices/playerservice";
-import { BlindKillerService } from "../backendservices/blindkillerservice";
+import { PlayerService } from "../services/playerservice";
+import { BlindKillerService } from "../services/blindkillerservice";
 
 function NumberAssignment() {
   const [players, setPlayers] = useState<PlayerType[]>([PlayerTypeMock]);
