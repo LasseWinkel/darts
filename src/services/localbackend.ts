@@ -98,6 +98,10 @@ export const LocalBackend = {
   resetBlindKiller(): void {
     const state = loadState();
     state.blindkiller = structuredClone(defaultState.blindkiller);
+    state.players = state.players.map((player) => ({
+      ...player,
+      number: 0,
+    }));
     saveState(state);
   },
 };

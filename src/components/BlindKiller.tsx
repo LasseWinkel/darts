@@ -181,12 +181,18 @@ function BlindKiller() {
           {winner && (
             <>
               <div className="winner">Winner: {winner && winner.name}</div>
-              <Button styleName="button-confirm">
+              <Button
+                handleClick={BlindKillerService.resetBlindKiller}
+                styleName="button-confirm"
+              >
                 <Link className="link-inside-button" to="/modi">
                   New game <br /> (same players)
                 </Link>
               </Button>
-              <Button styleName="button-confirm">
+              <Button
+                handleClick={BlindKillerService.resetBlindKiller}
+                styleName="button-confirm"
+              >
                 <Link className="link-inside-button" to="/">
                   New game <br /> (new players)
                 </Link>
