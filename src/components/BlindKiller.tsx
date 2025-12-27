@@ -163,15 +163,15 @@ function BlindKiller() {
                   }
                   key={Math.random()}
                 >
-                  <th>{aLives.field === 20 ? "Bull" : aLives.field + 1}</th>
-                  <th>{aLives.lives < 0 ? 0 : aLives.lives}</th>
-                  <th>
+                  <td>{aLives.field === 20 ? "Bull" : aLives.field + 1}</td>
+                  <td>{aLives.lives < 0 ? 0 : aLives.lives}</td>
+                  <td>
                     {winner
                       ? checkIfPlayerHasNumber(aLives.field + 1)
                       : aLives.lives <= 0
                       ? checkIfPlayerHasNumber(aLives.field + 1)
                       : ""}
-                  </th>
+                  </td>
                 </tr>
               );
             })}
