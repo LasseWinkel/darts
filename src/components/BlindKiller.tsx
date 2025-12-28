@@ -32,6 +32,10 @@ function BlindKiller() {
 
   const mountTimeRef = useRef(Date.now());
 
+  const dartThrowAudio = new Audio(dartThrow);
+  const failureSoundAudio = new Audio(failureSound);
+  const drumRollAudio = new Audio(drumRoll);
+
   useEffect(() => {
     BlindKillerService.fetchNumberOfLives().then((numOfLives) =>
       setNumberOfLives(numOfLives)
@@ -83,8 +87,7 @@ function BlindKiller() {
   };
 
   const hitNumber = (field: number, livesKilled: number) => {
-    const audio = new Audio(dartThrow);
-    audio.play();
+    dartThrowAudio.play();
 
     let newLives = [...lives];
 
@@ -107,8 +110,8 @@ function BlindKiller() {
               (aPlayer) => aPlayer.name !== player.name
             );
             setAlivePlayers(newAlivePlayers);
-            const audio = new Audio(failureSound);
-            audio.play();
+
+            failureSoundAudio.play();
           }
         }
       }
@@ -119,8 +122,7 @@ function BlindKiller() {
       newLives[field - 1].lives > 0 &&
       newLives[field - 1].lives - livesKilled <= 0
     ) {
-      const audio = new Audio(drumRoll);
-      audio.play();
+      drumRollAudio.play();
       setTimeout(() => {
         substractLive();
       }, 1000);
