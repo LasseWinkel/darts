@@ -12,8 +12,14 @@ function Bull(props: BullProps) {
 
   return (
     <div className={`bull-wrapper ${isDead ? "dead" : ""}`}>
-      <div className="single-bull" onClick={() => hitNumber(21, 2)}></div>
-      <div className="bulls-eye" onClick={() => hitNumber(21, 3)}></div>
+      <div
+        className={`single-bull ${isDead ? "dead" : ""}`}
+        onClick={() => hitNumber(21, 2)}
+      ></div>
+      <div
+        className={`bulls-eye ${isDead ? "dead" : ""}`}
+        onClick={() => hitNumber(21, 3)}
+      ></div>
     </div>
   );
 }

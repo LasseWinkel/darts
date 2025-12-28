@@ -29,6 +29,8 @@
   }
 }
 
-.bull-wrapper.dead {
+.bull-wrapper.dead,
+.single-bull.dead,
+.bulls-eye.dead {
   pointer-events: none;
 }
