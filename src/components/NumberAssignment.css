@@ -6,7 +6,6 @@
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
-  max-width: 100vw;
   background-image: url(../images/darts_board_dark.jpg);
   background-size: cover;
   background-position: center;
