@@ -8,3 +8,21 @@
   height: 37rem;
   z-index: 1000;
 }
+
+/* =========================
+   Responsive Anpassungen
+   =========================   */
+
+@media (max-width: 1024px) {
+  .board {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .board {
+    margin-top: 0.55rem;
+    width: 18rem;
+    height: 18rem;
+  }
+}

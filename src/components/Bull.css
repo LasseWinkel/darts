@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   /* margin-top: 200px; */
+  cursor: pointer;
 }
 
 .single-bull {
@@ -33,4 +34,21 @@
 .single-bull.dead,
 .bulls-eye.dead {
   pointer-events: none;
+}
+
+/* =========================
+   Responsive Anpassungen
+   =========================   */
+
+@media (max-width: 600px) {
+  .single-bull {
+    border: 0.6rem solid green;
+    height: 0.8rem;
+    width: 0.8rem;
+  }
+
+  .bulls-eye {
+    height: 0.8rem;
+    width: 0.8rem;
+  }
 }

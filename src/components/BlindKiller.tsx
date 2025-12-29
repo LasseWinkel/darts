@@ -21,7 +21,7 @@ interface BlindKillerLog {
 }
 
 function BlindKiller() {
-  const [numberOfLives, setNumberOfLives] = useState<number>(0);
+  const [, setNumberOfLives] = useState<number>(0);
   const [players, setPlayers] = useState<PlayerType[]>([]);
   const [lives, setLives] = useState<Lives[]>(Array(21).fill(LivesMock));
 

@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   background-image: url(../images/darts_players.jpg);
   background-repeat: no-repeat;
@@ -13,6 +13,9 @@
   font-size: 3rem;
   color: darkorange;
   text-shadow: 8px 8px 16px rgb(0, 0, 0, 1);
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 /* Abdunkelndes Overlay für bessere Vordergrundwirkung */
@@ -28,4 +31,23 @@
 .modi > * {
   position: relative;
   z-index: 1;
+}
+
+/* =========================
+   Responsive Anpassungen
+   ========================= */
+
+@media (max-width: 1024px) {
+  .modi {
+    font-size: 2.2rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .modi {
+    font-size: 1.6rem;
+    padding: 1rem;
+    text-shadow: 4px 4px 8px rgb(0, 0, 0, 1);
+  }
 }

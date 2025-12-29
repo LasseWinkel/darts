@@ -19,9 +19,10 @@
 
 .segment {
   height: 48rem;
-  width: 5rem;
+  width: 20rem;
   clip-path: polygon(50% 100%, 0 0, 100% 0);
   border: 2px solid grey;
+  cursor: pointer;
 
   &:hover {
     background-color: darkgray;
@@ -37,6 +38,7 @@
   border-radius: 10%;
   margin-bottom: 0.7rem;
   font-size: 1.4rem;
+  pointer-events: none;
 
   &:hover {
     background-color: darkgray;
@@ -141,4 +143,32 @@
 
 .segment-wrapper.dead {
   pointer-events: none;
+}
+
+/* =========================
+   Responsive Anpassungen
+   ========================= */
+
+@media (max-width: 1024px) {
+  .segment-wrapper {
+    top: 7.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .segment-wrapper {
+    height: 10rem;
+    width: 3.3rem;
+  }
+
+  .segment {
+    height: 36rem;
+  }
+
+  .number-wrapper {
+    height: 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    padding-bottom: 0.7rem;
+  }
 }

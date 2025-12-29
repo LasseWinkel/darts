@@ -4,12 +4,12 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
   background-image: url(../images/darts_board_dark.jpg);
-  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  box-sizing: border-box;
 }
 
 /* Abdunkelndes Overlay für bessere Vordergrundwirkung */
@@ -17,8 +17,8 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55); /* Stärke anpassen */
-  backdrop-filter: blur(2px); /* optional */
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
   z-index: 0;
 }
 
@@ -34,4 +34,29 @@
   font-size: 3rem;
   color: darkorange;
   text-shadow: 8px 8px 16px rgb(0, 0, 0, 1);
+  text-align: center;
+}
+
+/* =========================
+   Responsive Anpassungen
+   ========================= */
+
+@media (max-width: 1024px) {
+  .name,
+  .confirm-button,
+  .show-button,
+  .start-button {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .name,
+  .confirm-button,
+  .show-button,
+  .start-button {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    text-shadow: 4px 4px 8px rgb(0, 0, 0, 1);
+  }
 }

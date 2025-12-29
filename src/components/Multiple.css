@@ -1,6 +1,7 @@
 .multiple {
   height: 2rem;
   position: relative;
+  cursor: pointer;
 }
 
 .double {
@@ -26,5 +27,21 @@
 
   &:hover {
     background-color: darkgreen;
+  }
+}
+
+/* =========================
+   Responsive Anpassungen
+   ========================= */
+
+@media (max-width: 600px) {
+  .double {
+    bottom: 7.5rem;
+    width: 2.7rem;
+  }
+
+  .triple {
+    bottom: 5rem;
+    width: 1.8rem;
   }
 }

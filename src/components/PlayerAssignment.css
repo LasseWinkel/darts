@@ -4,8 +4,9 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
   max-width: 100vw;
-  max-height: 100vh;
+  height: 100vh;
   background-image: url(../images/darts_board.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -32,12 +33,16 @@
   font-size: 5rem;
   text-shadow: 8px 8px 16px rgb(0, 0, 0, 1);
   margin: 2rem;
+  text-align: center;
 }
 
 .content {
   display: flex;
   justify-content: center;
-  height: 90vh;
+  align-items: flex-start;
+  height: 100%;
+  width: 100%;
+  gap: 2rem;
 }
 
 .input-field {
@@ -46,6 +51,7 @@
   border: none;
   margin-bottom: 20px;
   text-align: center;
+  max-width: 300px;
 }
 
 .button-wrapper {
@@ -61,10 +67,12 @@
   color: white;
   padding: 0.7em 1.4em 0.7em 1.1em;
   margin: -0.7em -1.4em -0.7em -1.1em;
+  height: 100%;
+  width: 100%;
+}
 
-  &:hover {
-    color: lightblue;
-  }
+.link-inside-button:hover {
+  color: lightblue;
 }
 
 .players-overview {
@@ -79,6 +87,7 @@
 .players-header {
   font-size: 4rem;
   font-weight: bold;
+  text-align: center;
 }
 
 .players-creation {
@@ -86,4 +95,63 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* =========================
+   Responsive Anpassungen
+   ========================= */
+
+@media (max-width: 1024px) {
+  .player-assignment-header {
+    font-size: 3.5rem;
+  }
+
+  .players-header {
+    font-size: 3rem;
+  }
+
+  .players-overview,
+  .players-creation {
+    width: 80vw;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .button-wrapper {
+    margin-top: 4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .player-assignment-header {
+    font-size: 2.5rem;
+    margin: 1rem;
+  }
+
+  .players-header {
+    font-size: 2rem;
+  }
+
+  .players-overview {
+    font-size: 1.4rem;
+  }
+
+  .input-field {
+    font-size: 1.4rem;
+    padding: 10px;
+  }
+
+  .button-wrapper {
+    margin-top: 2rem;
+  }
+
+  .button-confirm,
+  .button-cancel,
+  .link-inside-button {
+    font-size: 1.4rem;
+  }
 }
