@@ -21,7 +21,7 @@
 
 @media (max-width: 600px) {
   .board {
-    margin-top: 0.7rem;
+    margin-top: 0.75rem;
     width: 18rem;
     height: 18rem;
   }
