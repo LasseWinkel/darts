@@ -23,6 +23,7 @@ body {
   /* font-family: "Playfair Display", serif; */
   overflow-x: hidden;
   width: 100%;
+  background-color: #000000; /* matches your page */
 }
 
 code {
