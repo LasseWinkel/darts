@@ -14,7 +14,7 @@
   position: absolute;
 
   &:hover {
-    border: 10px solid darkgreen;
+    border: 1.2rem solid darkgreen;
   }
 }
 
@@ -27,6 +27,8 @@
 
   &:hover {
     background-color: darkred;
+    height: 1.6rem;
+    width: 1.6rem;
   }
 }
 
@@ -45,10 +47,19 @@
     border: 0.6rem solid green;
     height: 0.8rem;
     width: 0.8rem;
+
+    &:hover {
+      border: 0.8rem solid darkgreen;
+    }
   }
 
   .bulls-eye {
     height: 0.8rem;
     width: 0.8rem;
+
+    &:hover {
+      height: 1.2rem;
+      width: 1.2rem;
+    }
   }
 }
