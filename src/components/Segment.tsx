@@ -30,6 +30,7 @@ function Segment(props: SegmentProps) {
       <Multiple
         styleName="double"
         color={color}
+        isDead={isDead}
         multiplier={2}
         number={number}
         hitNumber={hitNumber}
@@ -37,6 +38,7 @@ function Segment(props: SegmentProps) {
       <Multiple
         styleName="triple"
         color={color}
+        isDead={isDead}
         multiplier={3}
         number={number}
         hitNumber={hitNumber}

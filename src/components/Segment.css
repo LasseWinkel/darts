@@ -126,7 +126,8 @@
 }
 
 .dead {
-  filter: brightness(0.2);
+  filter: brightness(0.4);
+  background-color: azure;
 }
 
 .segment-wrapper.dead {
