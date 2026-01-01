@@ -1,8 +1,9 @@
 .segment-wrapper {
   position: absolute;
+  top: 50%;
+  left: 50%;
   transform-origin: bottom center;
-  /* margin-left: 10rem; */
-  bottom: 45vh;
+  transform: translate(-50%, -100%) rotate(var(--angle));
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -61,80 +62,67 @@
   background-color: white;
 }
 
+/* Rotation über CSS-Variable statt fixer Klassen */
+.n20 {
+  --angle: 0deg;
+}
+
 .n1 {
-  transform: rotate(18deg);
+  --angle: 18deg;
 }
-
 .n18 {
-  transform: rotate(36deg);
+  --angle: 36deg;
 }
-
 .n4 {
-  transform: rotate(54deg);
+  --angle: 54deg;
 }
-
 .n13 {
-  transform: rotate(72deg);
+  --angle: 72deg;
 }
-
 .n6 {
-  transform: rotate(90deg);
+  --angle: 90deg;
 }
-
 .n10 {
-  transform: rotate(108deg);
+  --angle: 108deg;
 }
-
 .n15 {
-  transform: rotate(126deg);
+  --angle: 126deg;
 }
-
 .n2 {
-  transform: rotate(144deg);
+  --angle: 144deg;
 }
-
 .n17 {
-  transform: rotate(162deg);
+  --angle: 162deg;
 }
-
 .n3 {
-  transform: rotate(180deg);
+  --angle: 180deg;
 }
-
 .n19 {
-  transform: rotate(198deg);
+  --angle: 198deg;
 }
-
 .n7 {
-  transform: rotate(216deg);
+  --angle: 216deg;
 }
-
 .n16 {
-  transform: rotate(234deg);
+  --angle: 234deg;
 }
-
 .n8 {
-  transform: rotate(252deg);
+  --angle: 252deg;
 }
-
 .n11 {
-  transform: rotate(270deg);
+  --angle: 270deg;
 }
-
 .n14 {
-  transform: rotate(288deg);
+  --angle: 288deg;
 }
-
 .n9 {
-  transform: rotate(306deg);
+  --angle: 306deg;
 }
-
 .n12 {
-  transform: rotate(324deg);
+  --angle: 324deg;
 }
-
 .n5 {
-  transform: rotate(342deg);
+  --angle: 342deg;
 }
 
 .dead {
@@ -148,12 +136,6 @@
 /* =========================
    Responsive Anpassungen
    ========================= */
-
-@media (max-width: 1024px) {
-  .segment-wrapper {
-    top: 7.5rem;
-  }
-}
 
 @media (max-width: 600px) {
   .segment-wrapper {

@@ -41,6 +41,15 @@
       }
     }
 
+    .smaller-table {
+      font-size: 1rem;
+    }
+
+    .smaller-th,
+    .smaller-td {
+      padding: 0 0.4rem !important;
+    }
+
     .blind-killer-end {
       display: flex;
       align-items: center;
@@ -53,6 +62,10 @@
         margin-bottom: 20px;
         font-size: 2rem;
         text-align: center;
+      }
+
+      .button-confirm {
+        padding: 1rem;
       }
     }
   }
@@ -111,6 +124,10 @@
       .blind-killer-end {
         .winner {
           font-size: 1.3rem;
+        }
+
+        .button-confirm > * {
+          font-size: 1rem;
         }
       }
     }

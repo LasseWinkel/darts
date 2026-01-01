@@ -146,12 +146,12 @@ function BlindKiller() {
       </header>
       <div className="vertical">
         <Board hitNumber={hitNumber} lives={lives} />
-        <table className="count-table">
+        <table className={`count-table ${winner && "smaller-table"}`}>
           <thead>
             <tr>
-              <th>Field</th>
-              <th>Lives</th>
-              <th>Player</th>
+              <th className={`${winner && "smaller-th"}`}>Field</th>
+              <th className={`${winner && "smaller-th"}`}>Lives</th>
+              <th className={`${winner && "smaller-th"}`}>Player</th>
             </tr>
           </thead>
           <tbody>
@@ -165,9 +165,13 @@ function BlindKiller() {
                   }
                   key={Math.random()}
                 >
-                  <td>{aLives.field === 20 ? "Bull" : aLives.field + 1}</td>
-                  <td>{aLives.lives < 0 ? 0 : aLives.lives}</td>
-                  <td>
+                  <td className={`${winner && "smaller-td"}`}>
+                    {aLives.field === 20 ? "Bull" : aLives.field + 1}
+                  </td>
+                  <td className={`${winner && "smaller-td"}`}>
+                    {aLives.lives < 0 ? 0 : aLives.lives}
+                  </td>
+                  <td className={`${winner && "smaller-td"}`}>
                     {winner
                       ? checkIfPlayerHasNumber(aLives.field + 1)
                       : aLives.lives <= 0
