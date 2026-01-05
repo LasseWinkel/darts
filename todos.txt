@@ -1,0 +1,5 @@
+Vergrößerung der Felder wieder zurücksetzen nach Klick
+
+Reihenfolge der Spieler anzeigen 
+
+Animation (alte wie beim Bowlen), wenn ein Spieler rausfliegt 
